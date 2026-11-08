@@ -3,7 +3,7 @@
 	
 	<meta title="Flappy Bird" package="com.example.game" version="1.0.0" company="Company Name" />
 	<app main="Main" path="Export" file="FlappyBird" />
-	<window width="720" height="480" fps="60" background="#70C5CE" />
+	<window width="720" height="480" fps="60" background="#000000" />
 	
 	<source path="Source" />
 	

@@ -8,6 +8,7 @@ import openfl.events.Event;
 import core.Scene;
 import openfl.events.KeyboardEvent;
 import openfl.ui.Keyboard;
+import openfl.geom.Rectangle;
 
 class Game extends Sprite {
 
@@ -35,6 +36,8 @@ class Game extends Sprite {
 
         currentScene = startingScene;
         this.addChild(currentScene);
+
+        scrollRect = new Rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT);
     }
 
     function onAddedToStage(e:Event) {
