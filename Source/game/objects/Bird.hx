@@ -31,6 +31,8 @@ class Bird extends PhysicsSprite {
         body.createFixture2(shape, 1);
 
         isDead = false;
+
+        body.setUserData("bird");
     }
 
     override public function update(delta:Float) {

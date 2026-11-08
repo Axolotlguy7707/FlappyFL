@@ -1,13 +1,12 @@
 package core;
 
+import core.physics.ContactListener;
 import box2D.common.math.B2Vec2;
 import box2D.dynamics.B2World;
 import haxe.Timer;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import core.Scene;
-import openfl.events.KeyboardEvent;
-import openfl.ui.Keyboard;
 import openfl.geom.Rectangle;
 
 class Game extends Sprite {
@@ -33,6 +32,8 @@ class Game extends Sprite {
         addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 
         physicsWorld = new B2World(new B2Vec2(0, 5), true);
+
+        physicsWorld.setContactListener(new ContactListener());
 
         currentScene = startingScene;
         this.addChild(currentScene);

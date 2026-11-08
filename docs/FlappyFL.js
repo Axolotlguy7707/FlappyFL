@@ -913,7 +913,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "12";
+	app.meta.h["build"] = "13";
 	app.meta.h["company"] = "Company Name";
 	app.meta.h["file"] = "FlappyFL";
 	app.meta.h["name"] = "FlappyFL";
@@ -13862,6 +13862,7 @@ var core_Game = function(startingScene) {
 	this.addEventListener("enterFrame",$bind(this,this.update));
 	this.addEventListener("addedToStage",$bind(this,this.onAddedToStage));
 	this.physicsWorld = new box2D_dynamics_B2World(new box2D_common_math_B2Vec2(0,5),true);
+	this.physicsWorld.setContactListener(new core_physics_ContactListener());
 	this.currentScene = startingScene;
 	this.addChild(this.currentScene);
 	this.set_scrollRect(new openfl_geom_Rectangle(0,0,720,480));
@@ -13927,6 +13928,22 @@ core_SceneManager.switchScene = function(scene) {
 core_SceneManager.prototype = {
 	__class__: core_SceneManager
 };
+var core_physics_ContactListener = function() {
+	box2D_dynamics_B2ContactListener.call(this);
+};
+$hxClasses["core.physics.ContactListener"] = core_physics_ContactListener;
+core_physics_ContactListener.__name__ = "core.physics.ContactListener";
+core_physics_ContactListener.__super__ = box2D_dynamics_B2ContactListener;
+core_physics_ContactListener.prototype = $extend(box2D_dynamics_B2ContactListener.prototype,{
+	beginContact: function(contact) {
+		var a = contact.getFixtureA().getBody().getUserData();
+		var b = contact.getFixtureB().getBody().getUserData();
+		if(a == "bird" && b == "pipe" || a == "pipe" && b == "bird") {
+			game_scenes_PlayScene.instance.bird.isDead = true;
+		}
+	}
+	,__class__: core_physics_ContactListener
+});
 var core_physics_PhysicsSprite = function() {
 	this.PPM = 30;
 	openfl_display_Sprite.call(this);
@@ -13957,6 +13974,7 @@ var game_objects_Bird = function() {
 	var shape = new box2D_collision_shapes_B2CircleShape(0.5);
 	this.body.createFixture2(shape,1);
 	this.isDead = false;
+	this.body.setUserData("bird");
 };
 $hxClasses["game.objects.Bird"] = game_objects_Bird;
 game_objects_Bird.__name__ = "game.objects.Bird";
@@ -14051,6 +14069,7 @@ var game_scenes_PlayScene = function() {
 	this.pipes = [];
 	this.pipeTimer = 0;
 	core_Scene.call(this);
+	game_scenes_PlayScene.instance = this;
 };
 $hxClasses["game.scenes.PlayScene"] = game_scenes_PlayScene;
 game_scenes_PlayScene.__name__ = "game.scenes.PlayScene";
@@ -14063,6 +14082,7 @@ game_scenes_PlayScene.prototype = $extend(core_Scene.prototype,{
 		this.get_graphics().endFill();
 		this.stage.addEventListener("keyDown",$bind(this,this.onKeyDown));
 		core_Game.instance.physicsWorld = new box2D_dynamics_B2World(new box2D_common_math_B2Vec2(0,5),true);
+		core_Game.instance.physicsWorld.setContactListener(new core_physics_ContactListener());
 		this.bird = new game_objects_Bird();
 		this.addChild(this.bird);
 	}
@@ -35182,7 +35202,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 666750;
+	this.version = 938564;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";

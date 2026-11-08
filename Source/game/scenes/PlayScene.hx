@@ -1,5 +1,6 @@
 package game.scenes;
 
+import core.physics.ContactListener;
 import box2D.dynamics.B2World;
 import core.Game;
 import box2D.common.math.B2Vec2;
@@ -12,7 +13,7 @@ import core.Scene;
 
 class PlayScene extends Scene {
 
-    var bird: Bird;
+    public var bird: Bird;
 
     var pipeTimer:Float = 0;
 
@@ -20,9 +21,13 @@ class PlayScene extends Scene {
 
     var pipeSpeed:Float = 200;
 
+    public static var instance:PlayScene;
+
 
     public function new() {
         super();
+
+        instance = this;
     }
 
     override public function create() {
@@ -34,10 +39,9 @@ class PlayScene extends Scene {
 
         stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 
-        Game.instance.physicsWorld = new B2World(
-            new B2Vec2(0, 5),
-            true
-        );
+        Game.instance.physicsWorld = new B2World(new B2Vec2(0, 5), true);
+
+        Game.instance.physicsWorld.setContactListener(new ContactListener());
 
         bird = new Bird();
 
