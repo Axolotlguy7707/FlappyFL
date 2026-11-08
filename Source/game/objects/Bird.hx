@@ -1,5 +1,6 @@
 package game.objects;
 
+import box2D.common.math.B2Vec2;
 import core.Game;
 import box2D.dynamics.B2Body;
 import box2D.collision.shapes.B2CircleShape;
@@ -27,5 +28,9 @@ class Bird extends PhysicsSprite {
 
     override public function update(delta:Float) {
         super.update(delta);
+    }
+
+    public function flap() {
+        body.setLinearVelocity(new B2Vec2(body.getLinearVelocity().x, -5));
     }
 }

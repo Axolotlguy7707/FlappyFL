@@ -6,6 +6,8 @@ import haxe.Timer;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import core.Scene;
+import openfl.events.KeyboardEvent;
+import openfl.ui.Keyboard;
 
 class Game extends Sprite {
 
