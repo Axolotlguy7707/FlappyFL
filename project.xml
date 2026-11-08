@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="%APP_NAME%" package="com.example.game" version="1.0.0" company="Company Name" />
-	<app main="Main" path="Export" file="%APP_NAME%" />
-	<window width="1280" height="720" fps="60" />
+	<meta title="Flappy Bird" package="com.example.game" version="1.0.0" company="Company Name" />
+	<app main="Main" path="Export" file="FlappyBird" />
+	<window width="720" height="1000" fps="60" />
 	
 	<source path="Source" />
 	
 	<haxelib name="openfl" />
+	<haxelib name="box2d" />
 	
 	<assets path="Assets" rename="assets" />
 	
