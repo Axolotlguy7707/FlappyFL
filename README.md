@@ -1,3 +1,5 @@
-# OpenFL Game Template
+# FlappyFL
 
-A Template to get started with Game Development with OpenFL
+A recreation of Flappy Bird in OpenFL.
+
+Made this to learn OpenFL without HaxeFlixel
