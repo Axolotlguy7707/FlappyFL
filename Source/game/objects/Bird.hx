@@ -42,6 +42,9 @@ class Bird extends PhysicsSprite {
         }
 
         if (y < 0 || y > Game.GAME_HEIGHT || x < 0 || x > Game.GAME_WIDTH) {
+            Game.instance.physicsWorld.destroyBody(body);
+            body = null;
+
             SceneManager.switchScene(new GameOverScene());
         }
     }

@@ -19,4 +19,6 @@ class Scene extends Sprite {
     public function create():Void {}
 
     public function update(delta:Float):Void {}
+
+    public function destroy():Void {}
 }

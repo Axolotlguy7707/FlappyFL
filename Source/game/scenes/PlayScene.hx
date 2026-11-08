@@ -1,5 +1,6 @@
 package game.scenes;
 
+import box2D.dynamics.B2World;
 import core.Game;
 import box2D.common.math.B2Vec2;
 import game.objects.Pipe;
@@ -27,15 +28,20 @@ class PlayScene extends Scene {
     override public function create() {
         super.create();
 
-        bird = new Bird();
-
-        this.addChild(bird);
-
         graphics.beginFill(0x70C5CE);
         graphics.drawRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
         graphics.endFill();
 
         stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+
+        Game.instance.physicsWorld = new B2World(
+            new B2Vec2(0, 5),
+            true
+        );
+
+        bird = new Bird();
+
+        this.addChild(bird);
     }
 
     override public function update(delta:Float) {
@@ -68,6 +74,10 @@ class PlayScene extends Scene {
         pipes = pipes.filter(function(pipe) {
             return !pipe.destroyed;
         });
+    }
+
+    override public function destroy() {
+        stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
     }
 
     function spawnPipes():Void {
