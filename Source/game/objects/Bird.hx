@@ -1,5 +1,7 @@
 package game.objects;
 
+import game.scenes.GameOverScene;
+import core.SceneManager;
 import box2D.common.math.B2Vec2;
 import core.Game;
 import box2D.dynamics.B2Body;
@@ -35,8 +37,12 @@ class Bird extends PhysicsSprite {
         super.update(delta);
 
         if (body.getLinearVelocity().x != 0) {
-            trace("moving horizontally");
+            //trace("moving horizontally");
             isDead = true;
+        }
+
+        if (y < 0 || y > Game.GAME_HEIGHT || x < 0 || x > Game.GAME_WIDTH) {
+            SceneManager.switchScene(new GameOverScene());
         }
     }
 

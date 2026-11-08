@@ -1,13 +1,22 @@
 package core;
 
 import openfl.display.Sprite;
+import openfl.events.Event;
 
 class Scene extends Sprite {
+
     public function new() {
         super();
+
+        addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
     }
 
-    public function create() {}
+    private function onAddedToStage(e:Event):Void {
+        removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+        create();
+    }
 
-    public function update(delta:Float) {}
+    public function create():Void {}
+
+    public function update(delta:Float):Void {}
 }

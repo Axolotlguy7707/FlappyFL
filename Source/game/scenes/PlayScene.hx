@@ -21,12 +21,6 @@ class PlayScene extends Scene {
 
     public function new() {
         super();
-
-        addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-    }
-
-    function onAddedToStage(e:Event):Void {
-        stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
     }
 
     override public function create() {
@@ -35,6 +29,8 @@ class PlayScene extends Scene {
         bird = new Bird();
 
         this.addChild(bird);
+
+        stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
     }
 
     override public function update(delta:Float) {

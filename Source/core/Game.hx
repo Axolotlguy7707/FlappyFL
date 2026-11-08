@@ -35,7 +35,6 @@ class Game extends Sprite {
 
         currentScene = startingScene;
         this.addChild(currentScene);
-        currentScene.create();
     }
 
     function onAddedToStage(e:Event) {

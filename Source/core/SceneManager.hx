@@ -8,7 +8,7 @@ class SceneManager {
         
     }
 
-    public function switchScene(scene: Scene) {
+    public static function switchScene(scene: Scene) {
         if (Game.instance.currentScene != null) {
             Game.instance.removeChild(Game.instance.currentScene);
         }
