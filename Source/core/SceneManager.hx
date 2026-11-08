@@ -15,6 +15,5 @@ class SceneManager {
 
         Game.instance.currentScene = scene;
         Game.instance.addChild(scene);
-        Game.instance.currentScene.create();
     }
 }
