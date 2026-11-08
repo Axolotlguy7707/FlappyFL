@@ -1,5 +1,6 @@
 package game.scenes;
 
+import game.objects.Pipe;
 import openfl.events.Event;
 import lime.ui.KeyCode;
 import openfl.events.KeyboardEvent;
@@ -9,6 +10,13 @@ import core.Scene;
 class PlayScene extends Scene {
 
     var bird: Bird;
+
+    var pipeTimer:Float = 0;
+
+    var pipes:Array<Pipe> = [];
+
+    var pipeSpeed:Float = 200;
+
 
     public function new() {
         super();
@@ -34,6 +42,36 @@ class PlayScene extends Scene {
         if (bird != null) {
             bird.update(delta);
         }
+
+        pipeTimer += delta;
+
+        if (pipeTimer >= 2) {
+            pipeTimer = 0;
+            spawnPipes();
+        }
+
+        for (pipe in pipes) {
+            pipe.x -= pipeSpeed * delta;
+        }
+    }
+
+    function spawnPipes():Void {
+        var gapY = 100 + Math.random() * 300;
+        var gapSize = 150;
+
+        var topPipe = new Pipe();
+        topPipe.x = 800;
+        topPipe.y = gapY - 300 - gapSize / 2;
+
+        var bottomPipe = new Pipe();
+        bottomPipe.x = 800;
+        bottomPipe.y = gapY + gapSize / 2;
+
+        addChild(topPipe);
+        addChild(bottomPipe);
+
+        pipes.push(topPipe);
+        pipes.push(bottomPipe);
     }
 
     function onKeyDown(e:KeyboardEvent) {
