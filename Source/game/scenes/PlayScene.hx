@@ -64,6 +64,10 @@ class PlayScene extends Scene {
 
             pipe.update(delta);
         }
+
+        pipes = pipes.filter(function(pipe) {
+            return !pipe.destroyed;
+        });
     }
 
     function spawnPipes():Void {

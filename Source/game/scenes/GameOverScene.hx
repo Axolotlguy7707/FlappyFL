@@ -19,7 +19,8 @@ class GameOverScene extends Scene {
         gameOverText.x = 0;
         gameOverText.y = 0;
 
-        graphics.beginFill(0x70C5CE);
+        // Background
+        graphics.beginFill(0x000000);
         graphics.drawRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
         graphics.endFill();
 

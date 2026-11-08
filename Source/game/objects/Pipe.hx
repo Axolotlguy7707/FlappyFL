@@ -1,5 +1,6 @@
 package game.objects;
 
+import game.scenes.PlayScene;
 import core.Game;
 import core.physics.PhysicsSprite;
 import box2D.collision.shapes.B2PolygonShape;
@@ -7,6 +8,10 @@ import box2D.dynamics.B2Body;
 import box2D.dynamics.B2BodyDef;
 
 class Pipe extends PhysicsSprite {
+
+    public var destroyed:Bool = false;
+
+
     public function new(x:Float, y:Float) {
         super();
 
@@ -32,5 +37,20 @@ class Pipe extends PhysicsSprite {
         body.createFixture2(shape);
 
         body.setUserData("pipe");
+    }
+
+    override public function update(delta:Float) {
+        super.update(delta);
+
+        if (this.x <= -100) {
+            parent.removeChild(this);
+
+            Game.instance.physicsWorld.destroyBody(body);
+            body = null;
+
+            trace('Pipe Destroyed!');
+
+            destroyed = true;
+        }
     }
 }
