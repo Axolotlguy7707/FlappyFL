@@ -9,6 +9,9 @@ import core.physics.PhysicsSprite;
 import box2D.dynamics.B2BodyDef;
 
 class Bird extends PhysicsSprite {
+
+    public var isDead:Bool;
+
     public function new() {
         super();
 
@@ -24,13 +27,22 @@ class Bird extends PhysicsSprite {
 
         var shape = new B2CircleShape(0.5);
         body.createFixture2(shape, 1);
+
+        isDead = false;
     }
 
     override public function update(delta:Float) {
         super.update(delta);
+
+        if (body.getLinearVelocity().x != 0) {
+            trace("moving horizontally");
+            isDead = true;
+        }
     }
 
     public function flap() {
-        body.setLinearVelocity(new B2Vec2(body.getLinearVelocity().x, -5));
+        if (!isDead) {
+            body.setLinearVelocity(new B2Vec2(body.getLinearVelocity().x, -5));
+        }
     }
 }

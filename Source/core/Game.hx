@@ -13,6 +13,9 @@ class Game extends Sprite {
 
     public static var instance:Game;
 
+    public static inline var GAME_WIDTH:Int = 720;
+    public static inline var GAME_HEIGHT:Int = 480;
+
     var lastTime:Float;
     public var currentScene:Scene;
 
@@ -26,12 +29,31 @@ class Game extends Sprite {
         lastTime = Timer.stamp();
 
         addEventListener(Event.ENTER_FRAME, update);
+        addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 
-        physicsWorld = new B2World(new B2Vec2(0, 9), true);
+        physicsWorld = new B2World(new B2Vec2(0, 5), true);
 
         currentScene = startingScene;
         this.addChild(currentScene);
         currentScene.create();
+    }
+
+    function onAddedToStage(e:Event) {
+        stage.addEventListener(Event.RESIZE, onResize);
+        onResize(null);
+    }
+
+    function onResize(e:Event) {
+        var scale = Math.min(
+            stage.stageWidth / GAME_WIDTH,
+            stage.stageHeight / GAME_HEIGHT
+        );
+
+        scaleX = scale;
+        scaleY = scale;
+
+        x = (stage.stageWidth - GAME_WIDTH * scale) / 2;
+        y = (stage.stageHeight - GAME_HEIGHT * scale) / 2;
     }
 
     function update(e:Event) {

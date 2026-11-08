@@ -6,7 +6,7 @@ import box2D.dynamics.B2Body;
 class PhysicsSprite extends Sprite {
     public var body:B2Body;
 
-    public static inline var PPM:Int = 30;
+    public var PPM:Int = 30;
 
     public function new() {
         super();

@@ -1,5 +1,6 @@
 package game.scenes;
 
+import box2D.common.math.B2Vec2;
 import game.objects.Pipe;
 import openfl.events.Event;
 import lime.ui.KeyCode;
@@ -51,7 +52,16 @@ class PlayScene extends Scene {
         }
 
         for (pipe in pipes) {
-            pipe.x -= pipeSpeed * delta;
+            var pos = pipe.body.getPosition();
+
+            pipe.body.setPosition(
+                new B2Vec2(
+                    pos.x - pipeSpeed * delta / pipe.PPM,
+                    pos.y
+                )
+            );
+
+            pipe.update(delta);
         }
     }
 
@@ -59,13 +69,15 @@ class PlayScene extends Scene {
         var gapY = 100 + Math.random() * 300;
         var gapSize = 150;
 
-        var topPipe = new Pipe();
-        topPipe.x = 800;
-        topPipe.y = gapY - 300 - gapSize / 2;
+        var topPipe = new Pipe(
+            800,
+            gapY - 150 - gapSize / 2
+        );
 
-        var bottomPipe = new Pipe();
-        bottomPipe.x = 800;
-        bottomPipe.y = gapY + gapSize / 2;
+        var bottomPipe = new Pipe(
+            800,
+            gapY + 150 + gapSize / 2
+        );
 
         addChild(topPipe);
         addChild(bottomPipe);
