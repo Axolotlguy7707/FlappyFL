@@ -1,5 +1,6 @@
 package game.scenes;
 
+import openfl.text.TextFormat;
 import openfl.events.Event;
 import openfl.ui.Keyboard;
 import openfl.text.TextField;
@@ -18,10 +19,18 @@ class GameOverScene extends Scene {
         super.create();
 
         var gameOverText = new TextField();
-        gameOverText.text = 'GAME OVER';
 
-        gameOverText.x = 0;
-        gameOverText.y = 0;
+        gameOverText.width = 500;
+        gameOverText.height = 100;
+
+        gameOverText.x = Game.GAME_WIDTH / 2 - 100;
+        gameOverText.y = Game.GAME_HEIGHT / 2 - 50;
+
+        var gameOverTextFormat = new TextFormat();
+        gameOverTextFormat.size = 32;
+
+        gameOverText.defaultTextFormat = gameOverTextFormat;
+        gameOverText.text = 'GAME OVER';
 
         // Background
         graphics.beginFill(0x70C5CE);
